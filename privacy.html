@@ -33,49 +33,73 @@
 
   <div class="eyebrow">Animal Based Coach</div>
   <h1>Privacy Policy</h1>
-  <div class="date">Last updated: 11 July 2026</div>
+  <div class="date">Last updated: 13 July 2026</div>
 
   <p>This policy explains what Animal Based Coach collects, why, and what we do with it. It is written to be read, not to be survived.</p>
+  <p>It applies to a health app that may hold your weight, your bloodwork, your medications and your conversations about all three. We have tried to write it the way we'd want it written for us.</p>
 
   <hr>
 
   <h2>The short version</h2>
   <ul>
-    <li>Your data lives <strong>on your phone</strong>. There is no account database. We are not storing your profile, your check-ins, your weight, or your chat history on a server.</li>
-    <li>To answer you, the app sends the information the coach needs to an AI model provider. That is the only place your data goes.</li>
-    <li>We do not sell your data. We do not share it with advertisers. There are no ad networks, no analytics SDKs, and no third-party trackers in this app.</li>
-    <li>You can delete everything, permanently, from inside the app: <strong>Profile → Delete my account and all data</strong>.</li>
+    <li>You sign in with <strong>Sign in with Apple</strong>. There is no password — we never ask you to invent a secret, so there is no secret of yours for us to lose.</li>
+    <li>Your data is stored <strong>on your phone</strong> and <strong>backed up to your account</strong>, so a new phone is a sign-in rather than a fresh start. No other user can read your backup, and we don't read it except as needed to run the service.</li>
+    <li>To answer you, the app sends the information the coach needs to an AI model provider. A few other services help run the app and your subscription — the full list is below.</li>
+    <li>We do not sell your data. We do not share it with advertisers. There are <strong>no ad networks and no cross-app tracking SDKs</strong> in this app — the only third parties involved are the infrastructure that runs it and your subscription, listed below.</li>
+    <li>You can delete everything, permanently — on your phone <em>and</em> on our server — from inside the app: <strong>Profile → Delete my account and all data</strong>.</li>
   </ul>
 
   <hr>
 
   <h2>What we collect, and where it lives</h2>
-  <p><strong>Everything you enter is stored locally on your device.</strong> That includes:</p>
+  <p>Everything you enter is stored on your device, and backed up to your account so it survives a lost or replaced phone. That includes:</p>
   <ul>
     <li>Your name and email</li>
     <li>Your body stats (sex, age, height, weight, goal weight)</li>
     <li>Your goals, training schedule, food preferences, budget and allergies</li>
     <li>Any health conditions, medications and blood test results you choose to enter</li>
     <li>Your daily check-ins (how you feel, energy, digestion, sleep, weight)</li>
+    <li>Any Apple Health data you choose to connect (HRV, resting heart rate, steps, sleep)</li>
     <li>Your meal plans, experiments and findings</li>
     <li>Your conversations with the coach</li>
   </ul>
-  <p>We do not have a copy. If you delete the app or delete your account in-app, that data is gone — including from us, because we never had it.</p>
+
+  <h3>Your account and the backup</h3>
+  <p>Authentication and the backup are handled by <strong>Supabase</strong>, a hosted Postgres provider, acting as our data processor. The backup is protected by row-level security: on every single request, the database itself enforces that <strong>no other user</strong> can read or write your data. It is encrypted in transit and at rest. Running the service does require an administrative key that can technically reach the data, which is exactly why the promise below matters:</p>
+  <p><strong>We do not sign in as you and read it.</strong> We do not mine it, profile you with it, or use it to train anything.</p>
+
+  <h3>Sign in with Apple</h3>
+  <p>If you use Sign in with Apple and choose to hide your email, we receive only Apple's relay address. We never see your real one, and we do not try to.</p>
+
+  <h3>Apple Health</h3>
+  <p>Connecting Apple Health is <strong>optional</strong> and <strong>read-only</strong> — we never write anything back to Health. If you connect it, we read only four things: heart-rate variability, resting heart rate, steps, and sleep. We ask for nothing else. You can revoke it at any time in iOS Settings → Health → Data Access &amp; Devices, and the app will simply stop showing those metrics rather than fill in the gap with a guess. <strong>Apple Health data is never used for advertising or marketing, is never sold, and is never shared with data brokers.</strong> It is used only to show you those metrics and to inform your coaching.</p>
 
   <h3>Health information</h3>
-  <p>Some of what you can enter is sensitive: blood markers, medications, health conditions, an eating-disorder history. <strong>You choose whether to provide any of it.</strong> The app works without it; the coaching is simply less specific. It is stored on your device with everything else and is only ever sent where described below.</p>
+  <p>Some of what you can enter is sensitive: blood markers, medications, health conditions. <strong>You choose whether to provide any of it.</strong> The app works without it; the coaching is simply less specific. We do not ask about, and do not collect, any eating-disorder history.</p>
 
   <hr>
 
   <h2>Where your data is sent</h2>
   <p>To answer a question, build your meal plan, or read your week, the app sends the relevant parts of the above to an <strong>AI model provider</strong> (currently Google Gemini) through our backend.</p>
   <ul>
-    <li>Our backend is a <strong>relay</strong>. It passes the request to the model and passes the answer back. It does not keep your data after the request completes.</li>
+    <li>Our backend passes the request to the model and passes the answer back. It is not a database and is not built to keep your health data — but the server it runs on (Render) may hold short-lived operational logs for a limited period, as any web server does, to keep the service running and secure.</li>
     <li>The model provider processes the request under their own terms. They do <strong>not</strong> use data sent through the paid API to train their models.</li>
     <li>Requests are sent over HTTPS.</li>
   </ul>
-  <p>If you use the restaurant finder, the app sends the city or approximate location you provide, so the coach can suggest places near you. Your precise location is never stored.</p>
-  <p>If you scan a blood test report, the photo is sent to the model to read the numbers out of it, and is not retained afterwards.</p>
+
+  <h3>The companies that help run the app</h3>
+  <p>These are the service providers that may receive some of your data so the app can work. This is the complete list.</p>
+  <ul>
+    <li><strong>Supabase</strong> — stores your account and your cloud backup.</li>
+    <li><strong>Google (Gemini API)</strong> — processes each coaching request, including any blood-test photo you scan. Not used for training.</li>
+    <li><strong>Render</strong> — hosts the backend server your requests pass through.</li>
+    <li><strong>RevenueCat</strong> — manages your subscription. It receives your account's user ID and your purchase history so it can track whether your subscription is active.</li>
+    <li><strong>Expo (EAS)</strong> — delivers the app and its updates to your phone.</li>
+    <li><strong>Apple</strong> — provides Sign in with Apple and processes your payments.</li>
+  </ul>
+  <p>Nobody else receives your data, for any purpose.</p>
+  <p>If you use the restaurant finder, the app sends the city or approximate location you provide, so the coach can suggest places near you. We don't store your exact GPS position; if we can't turn your location into a place name, the app may store <strong>approximate</strong> coordinates — rounded to roughly 110 metres — with that feature and in your backup.</p>
+  <p>If you scan a blood test report, the photo is sent to the model to read the numbers out of it. It travels the same path as any other coaching request — through our backend — so the same note above about short-lived operational logs applies.</p>
 
   <hr>
 
@@ -85,23 +109,25 @@
     <li>We do not share it with advertisers or data brokers.</li>
     <li>We do not track you across other apps or websites.</li>
     <li>There are no third-party analytics or advertising SDKs in this app.</li>
-    <li>We do not read your Apple Health data. The app has no Health integration.</li>
+    <li>We do not ask you for a password, so we cannot leak one.</li>
+    <li>We do not read any Apple Health data beyond the four things listed above, and only if you connect it.</li>
   </ul>
 
   <hr>
 
   <h2>Payments</h2>
-  <p>Subscriptions are handled by <strong>Apple's In-App Purchase system</strong>. Apple processes the payment. <strong>We never see your card number.</strong> We receive only whether your subscription is active.</p>
+  <p>Subscriptions are handled by <strong>Apple's In-App Purchase system</strong>. Apple processes the payment. <strong>We never see your card number.</strong> Through RevenueCat we receive your subscription status and purchase history (which product, when it renews) — never your payment details.</p>
 
   <hr>
 
   <h2>Your rights</h2>
   <ul>
-    <li><strong>Delete everything:</strong> Profile → <em>Delete my account and all data</em>. It is immediate and permanent.</li>
-    <li><strong>Delete your conversations only:</strong> Profile → <em>Delete all coach conversations</em>.</li>
-    <li><strong>Access your data:</strong> it is on your device, in the app. There is no hidden copy to request.</li>
-    <li>If you are in the EU/UK (GDPR) or California (CCPA/CPRA), the rights those laws give you — access, correction, deletion, and not having your data sold — are satisfied by the above, because we do not hold your data and we do not sell it.</li>
+    <li><strong>Delete everything:</strong> Profile → <em>Delete my account and all data</em>. This deletes your account and your backup on our server <em>and</em> wipes the app on your phone. It is immediate and permanent. If the server deletion fails for any reason, the app tells you and deletes nothing — you will never be shown a deletion that did not happen. Two things sit outside this: the subscription record Apple and our billing provider (RevenueCat) keep for accounting, and short-lived server logs that expire on their own. Deleting your account does <strong>not</strong> cancel your subscription — to stop billing, cancel separately in Settings → your Apple ID → Subscriptions.</li>
+    <li><strong>Delete your conversations only:</strong> Profile → <em>Delete all coach conversations</em>. This clears your chat history from your phone and your backup. A small set of distilled facts the coach keeps so it stays useful across chats — its working memory — is stored separately and is not removed by this action; to erase everything, use <em>Delete my account and all data</em>.</li>
+    <li><strong>Access or correct your data:</strong> all of it is visible and editable in the app. If you want a copy in machine-readable form, email us and we'll send it.</li>
+    <li>If you are in the EU/UK (GDPR) or California (CCPA/CPRA): the rights those laws give you — access, correction, deletion, portability, and not having your data sold — are all available above or on request. We do not sell personal information and never have.</li>
   </ul>
+  <p>We keep your backup for as long as your account exists. Delete the account and it goes with it, immediately.</p>
 
   <hr>
 
