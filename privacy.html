@@ -33,7 +33,7 @@
 
   <div class="eyebrow">Animal Based Coach</div>
   <h1>Privacy Policy</h1>
-  <div class="date">Last updated: 25 July 2026</div>
+  <div class="date">Last updated: 3 September 2026</div>
 
   <p>This policy explains what Animal Based Coach collects, why, and what we do with it. It is written to be read, not to be survived.</p>
   <p>It applies to a health app that may hold your weight, your bloodwork, your medications and your conversations about all three. We have tried to write it the way we'd want it written for us.</p>
@@ -45,7 +45,7 @@
     <li>You sign in with <strong>Sign in with Apple</strong>. There is no password — we never ask you to invent a secret, so there is no secret of yours for us to lose.</li>
     <li>Your data is stored <strong>on your phone</strong> and <strong>backed up to your account</strong>, so a new phone is a sign-in rather than a fresh start. No other user can read your backup, and we don't read it except as needed to run the service.</li>
     <li>To answer you, the app sends the information the coach needs to an AI model provider. A few other services help run the app and your subscription — the full list is below.</li>
-    <li>We do not sell your data. We do not share it with advertisers. There are <strong>no ad networks and no cross-app tracking SDKs</strong> in this app — the only third parties involved are the infrastructure that runs it and your subscription, listed below.</li>
+    <li>We do not sell your data. We do not share your health data, meals, photos or chats with anyone but the services that run the app, listed below. <strong>One exception, stated plainly:</strong> to measure whether our own ads work, the app includes Meta's measurement SDK and a RevenueCat integration that can report installs and subscriptions to Meta. If you allow tracking when iOS asks, that includes a device identifier; if you decline, only Apple's privacy-preserving, aggregated attribution is used and you are not identified. Details below.</li>
     <li>You can delete everything, permanently — on your phone <em>and</em> on our server — from inside the app: <strong>Profile → Delete my account and all data</strong>.</li>
   </ul>
 
@@ -93,22 +93,26 @@
     <li><strong>Supabase</strong> — stores your account and your cloud backup.</li>
     <li><strong>Google (Gemini API)</strong> — processes each coaching request, including any blood-test photo you scan. Not used for training.</li>
     <li><strong>Render</strong> — hosts the backend server your requests pass through.</li>
-    <li><strong>RevenueCat</strong> — manages your subscription. It receives your account's user ID and your purchase history so it can track whether your subscription is active.</li>
+    <li><strong>RevenueCat</strong> — manages your subscription. It receives your account's user ID and your purchase history so it can track whether your subscription is active. If you allowed tracking, it also passes a device identifier and your IP address to Meta so the install or subscription can be attributed to an ad.</li>
+    <li><strong>Meta (Facebook SDK)</strong> — ad measurement only. It receives app-lifecycle events (the app was installed, opened, a subscription started) so we can tell whether an ad led to them. It never receives your health data, meals, photos, chats or diet. When you allow tracking in the iOS prompt, Meta may link those events to your device's advertising identifier; when you decline, Meta receives only aggregated measurement that does not identify you.</li>
     <li><strong>Expo (EAS)</strong> — delivers the app and its updates to your phone.</li>
     <li><strong>Apple</strong> — provides Sign in with Apple and processes your payments.</li>
   </ul>
   <p>Nobody else receives your data, for any purpose.</p>
   <p>If you use the restaurant finder, the app sends the city or approximate location you provide, so the coach can suggest places near you. We don't store your exact GPS position; if we can't turn your location into a place name, the app may store <strong>approximate</strong> coordinates — rounded to roughly 110 metres — with that feature and in your backup.</p>
-  <p>If you scan a blood test report, the photo is sent to the model to read the numbers out of it. It travels the same path as any other coaching request — through our backend — so the same note above about short-lived operational logs applies.</p>
+  <p>If you scan a blood test report, or photograph a meal so the coach can estimate what is on the plate, the photo is sent to the model to read it. It travels the same path as any other coaching request — through our backend — and is not stored on our server or used for training; the same note above about short-lived operational logs applies. Meal photos are downscaled on your phone before they are sent.</p>
+
+  <h3>Tracking and the iOS "Allow tracking" prompt</h3>
+  <p>Before your subscription starts, iOS asks whether the app may track you. This exists for one reason: measuring our own advertising. If you tap <strong>Allow</strong>, Meta and RevenueCat may use your device's advertising identifier, a per-app device identifier and your IP address to attribute the install or purchase to an ad. If you tap <strong>Ask App Not to Track</strong>, none of those identifiers are collected and attribution uses only Apple's SKAdNetwork and Meta's aggregated measurement, which do not identify you. Your choice changes nothing else about the app, and you can change it any time in iOS Settings → Privacy &amp; Security → Tracking. Health data, meals, photos and chats are never used for advertising, whatever you choose.</p>
 
   <hr>
 
   <h2>What we do NOT do</h2>
   <ul>
     <li>We do not sell your personal information.</li>
-    <li>We do not share it with advertisers or data brokers.</li>
-    <li>We do not track you across other apps or websites.</li>
-    <li>There are no third-party analytics or advertising SDKs in this app.</li>
+    <li>We do not share your health data, meals, photos or chats with advertisers or data brokers.</li>
+    <li>We do not track you across other apps or websites unless you allow tracking in the iOS prompt — and then only to measure our own ads.</li>
+    <li>The only advertising-related SDK in the app is Meta's measurement SDK, described above; there are no other analytics or advertising SDKs.</li>
     <li>We do not ask you for a password, so we cannot leak one.</li>
     <li>We do not read any Apple Health data beyond the seven things listed above, and only if you connect it.</li>
   </ul>
