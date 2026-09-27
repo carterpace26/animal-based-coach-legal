@@ -33,7 +33,7 @@
 
   <div class="eyebrow">Animal Based Coach</div>
   <h1>Privacy Policy</h1>
-  <div class="date">Last updated: 3 September 2026</div>
+  <div class="date">Last updated: 25 September 2026</div>
 
   <p>This policy explains what Animal Based Coach collects, why, and what we do with it. It is written to be read, not to be survived.</p>
   <p>It applies to a health app that may hold your weight, your bloodwork, your medications and your conversations about all three. We have tried to write it the way we'd want it written for us.</p>
@@ -45,6 +45,7 @@
     <li>You sign in with <strong>Sign in with Apple</strong>. There is no password — we never ask you to invent a secret, so there is no secret of yours for us to lose.</li>
     <li>Your data is stored <strong>on your phone</strong> and <strong>backed up to your account</strong>, so a new phone is a sign-in rather than a fresh start. No other user can read your backup, and we don't read it except as needed to run the service.</li>
     <li>To answer you, the app sends the information the coach needs to an AI model provider. A few other services help run the app and your subscription — the full list is below.</li>
+    <li>If you add friends inside the app, they see a small, fixed set of things about you — your display name, the avatar you picked, your streaks, your level, whether you checked in today and how far into a 30-day transformation you are. Never your weight, meals, photos, chats or health data. Details below.</li>
     <li>We do not sell your data. We do not share your health data, meals, photos or chats with anyone but the services that run the app, listed below. <strong>One exception, stated plainly:</strong> to measure whether our own ads work, the app includes Meta's measurement SDK and a RevenueCat integration that can report installs and subscriptions to Meta. If you allow tracking when iOS asks, that includes a device identifier; if you decline, only Apple's privacy-preserving, aggregated attribution is used and you are not identified. Details below.</li>
     <li>You can delete everything, permanently — on your phone <em>and</em> on our server — from inside the app: <strong>Profile → Delete my account and all data</strong>.</li>
   </ul>
@@ -62,7 +63,9 @@
     <li>Any Apple Health data you choose to connect (HRV, resting heart rate, steps, sleep, weight, body fat and active energy)</li>
     <li>Your meal plans, experiments and findings</li>
     <li>Your conversations with the coach</li>
+    <li>Your 30-day transformations (goal, dates, the days you checked in) and, if you add friends, the display name and avatar you chose for them</li>
   </ul>
+  <p><strong>One thing that is stored on your phone only, and never backed up:</strong> the optional "before" photo you can take when you start a 30-day transformation. It never leaves the device — not to our server, not to the AI, not to friends. It is deleted when you sign out or delete your account. The results card at the end of a transformation is saved to your Photos only when you tap Save, and shared only when you tap Share.</p>
 
   <h3>Your account and the backup</h3>
   <p>Authentication and the backup are handled by <strong>Supabase</strong>, a hosted Postgres provider, acting as our data processor. The backup is protected by row-level security: on every single request, the database itself enforces that <strong>no other user</strong> can read or write your data. It is encrypted in transit and at rest. Running the service does require an administrative key that can technically reach the data, which is exactly why the promise below matters:</p>
@@ -76,6 +79,13 @@
 
   <h3>Health information</h3>
   <p>Some of what you can enter is sensitive: blood markers, medications, health conditions. <strong>You choose whether to provide any of it.</strong> The app works without it; the coaching is simply less specific. We do not ask about, and do not collect, any eating-disorder history.</p>
+
+  <h3>Friends (optional)</h3>
+  <p>You can add up to five friends by exchanging a four-character code shown in the app. Adding someone sends them a request they can accept, decline or report; nothing is shared until they accept. A friend sees exactly this about you, and you see the same about them: your display name and avatar, your day streak and gold-day streak, your level and rank, whether you have checked in today (and the date of your last check-in), and which day of a 30-day transformation you are on. They can send you one "nudge" a day — a one-tap prompt with no message attached. To make nudges land on the right day, the app stores your time-zone offset alongside that row.</p>
+  <p><strong>A friend never sees</strong> your weight, your body stats, your meals or plan, your photos, your chats, your bloodwork, your Apple Health data, your email, or anything else. There is no free-text messaging between friends. You can remove a friend at any time (you disappear from each other's rows; nothing is said to them) and report a request or a friend from the same screen. Deleting your account removes your row, your code, and you from every friend's list.</p>
+
+  <h3>Onboarding measurement</h3>
+  <p>Before you sign in, the app records which step of the first-run questionnaire you reached — a step number and, later, whether you saw the subscription screen — under a random install identifier generated on your phone. We use it in aggregate to see where people stop. It contains none of your answers. Once you sign in it is linked to your account; when you delete your account that link is removed and the anonymous step record is kept.</p>
 
   <hr>
 
@@ -98,7 +108,7 @@
     <li><strong>Expo (EAS)</strong> — delivers the app and its updates to your phone.</li>
     <li><strong>Apple</strong> — provides Sign in with Apple and processes your payments.</li>
   </ul>
-  <p>Nobody else receives your data, for any purpose.</p>
+  <p>Nobody else receives your data, for any purpose — other than the friends you choose to add, who receive only the fixed set described above.</p>
   <p>If you use the restaurant finder, the app sends the city or approximate location you provide, so the coach can suggest places near you. We don't store your exact GPS position; if we can't turn your location into a place name, the app may store <strong>approximate</strong> coordinates — rounded to roughly 110 metres — with that feature and in your backup.</p>
   <p>If you scan a blood test report, or photograph a meal so the coach can estimate what is on the plate, the photo is sent to the model to read it. It travels the same path as any other coaching request — through our backend — and is not stored on our server or used for training; the same note above about short-lived operational logs applies. Meal photos are downscaled on your phone before they are sent.</p>
 
@@ -126,7 +136,7 @@
 
   <h2>Your rights</h2>
   <ul>
-    <li><strong>Delete everything:</strong> Profile → <em>Delete my account and all data</em>. This deletes your account and your backup on our server <em>and</em> wipes the app on your phone. It is immediate and permanent. If the server deletion fails for any reason, the app tells you and deletes nothing — you will never be shown a deletion that did not happen. Two things sit outside this: the subscription record Apple and our billing provider (RevenueCat) keep for accounting, and short-lived server logs that expire on their own. Deleting your account does <strong>not</strong> cancel your subscription — to stop billing, cancel separately in Settings → your Apple ID → Subscriptions.</li>
+    <li><strong>Delete everything:</strong> Profile → <em>Delete my account and all data</em>. This deletes your account and your backup on our server <em>and</em> wipes the app on your phone. It is immediate and permanent. If the server deletion fails for any reason, the app tells you and deletes nothing — you will never be shown a deletion that did not happen. Three things sit outside this: the subscription record Apple and our billing provider (RevenueCat) keep for accounting; short-lived server logs that expire on their own; and a one-way, salted hash of your Sign in with Apple identifier, kept with a count of how much of the free allowance that identity has used, so that deleting an account and creating a new one does not reset the free trial or the abuse protections. The hash cannot be turned back into your identity and holds none of your data. The anonymous onboarding step record described above is also kept, unlinked from you. Deleting your account does <strong>not</strong> cancel your subscription — to stop billing, cancel separately in Settings → your Apple ID → Subscriptions.</li>
     <li><strong>Delete your conversations only:</strong> Profile → <em>Delete all coach conversations</em>. This clears your chat history from your phone and your backup. A small set of distilled facts the coach keeps so it stays useful across chats — its working memory — is stored separately and is not removed by this action; to erase everything, use <em>Delete my account and all data</em>.</li>
     <li><strong>Access or correct your data:</strong> all of it is visible and editable in the app. If you want a copy in machine-readable form, email us and we'll send it.</li>
     <li>If you are in the EU/UK (GDPR) or California (CCPA/CPRA): the rights those laws give you — access, correction, deletion, portability, and not having your data sold — are all available above or on request. We do not sell personal information and never have.</li>
